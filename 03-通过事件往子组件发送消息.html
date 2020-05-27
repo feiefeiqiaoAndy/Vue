@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>03-通过事件往子组件发送消息</title>
+</head>
+<body>
+<div id="app">
+
+
+
+</div>
+</body>
+<script type="text/javascript" src="./node_modules/vue/dist/vue.js"></script>
+
+<script type="text/javascript">
+
+    Vue.component('Child',{
+
+
+        //3在子组件任意使用
+        template: '<div><p>我一个子组件{{childData}}</p> <input type="text" v-model="childData" @input="changeValue(childData)"  /> </div>',
+
+       //2 在子组件中用pros 接受数据
+        props:['childData'],
+        methods:{
+            changeValue(val){
+                //第一个参数自定义事件名     第二个是消息  $emit(自定义事件名,消息)
+                this.$emit('childHander',val)
+            }
+        }
+    });
+
+    //1给父组件绑定自定义事件
+    //2在子组件中 触发原生的事件  在函数中使用$emit触发自定义的childHander
+
+
+
+
+    // 1给父组件绑定自定义属性
+    Vue.component('Parent',{
+        data(){
+            return {
+                msg : 'huanggua'
+
+            }
+        },
+        template: '<div><p>我一个父组件</p><Child :childData="msg" @childHander="childHander"/></div>',
+        methods:{
+            childHander(val){
+                console.log(val)
+            }
+        }
+    });
+
+
+    //1申子
+    var  App = {
+        template: '<div><Parent/></div>',
+    };
+
+    new Vue ({
+        el :"#app",
+        data(){
+            return {
+
+            }
+        },
+        components:{
+            //2挂子
+
+        },
+        //3用子
+        template:'<Parent/>'
+    });
+</script>
+</html>
