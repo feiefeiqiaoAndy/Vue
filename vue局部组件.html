@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+
+
+
+</div>
+</body>
+<script type="text/javascript" src="./node_modules/vue/dist/vue.js"></script>
+
+<script type="text/javascript">
+ //全局组件
+      //第一个参数组件的名称   第二个参数是配置选项options
+      Vue.component('Vbtn',{
+          template:'<button value="按钮">按钮</button>'
+      });
+
+     var   Vheader = {
+         data(){
+             return {
+
+             }
+         },
+         methods:{
+
+         },
+         template:'<div>我是头部组件<Vbtn/></div>'
+     };
+     var   Vaside = {
+         template:'<div>我是侧边栏组件<Vbtn/></div>'
+     };
+     var   Vcontent = {
+         template:'<div>我是主题栏组件<Vbtn/><Vbtn/><Vbtn/></div>'
+     };
+
+    //1申子
+    var  App = {
+        template: '<div><Vheader/><div><Vaside/><Vcontent/></div></div>',
+        components: {
+            //用子
+            Vheader,Vaside,Vcontent
+        }
+    };
+
+    new Vue ({
+        el :"#app",
+        data(){
+            return {
+
+            }
+        },
+        components:{
+            //2挂子
+          App
+        },
+        //3用子
+        template:'<App/>'
+    });
+</script>
+</html>
